@@ -72,7 +72,7 @@ Acesse no navegador: Abra http://localhost:5000
 
 
 
-🎓 Contexto Acadêmico
+#🎓 Contexto Acadêmico
 Este projeto foi desenvolvido para a disciplina de Programação Orientada a Objetos no Instituto de Informática (INF/UFG), demonstrando a aplicação prática de:
 
 Classes, Atributos e Métodos.
@@ -83,7 +83,7 @@ Relacionamento entre Classes (Associação/Composição).
 
 Persistência em Banco de Dados Relacional.
 
-Desenvolvido por Jamily, Gustavo Alves, Gustavo Duarte e Julia Pereira.
+###Desenvolvido por Jamily, Gustavo Alves, Gustavo Duarte e Julia Pereira.
 
 
 
