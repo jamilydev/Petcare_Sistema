@@ -44,3 +44,46 @@ projeto_petcare/
 │
 ├── main.py              # Arquivo principal de execução
 └── requirements.txt     # Dependências do projeto
+```
+
+🚀 Como Executar o Projeto
+Pré-requisitos: Python instalado.
+
+Clone o repositório:
+```
+Bash
+
+git clone [https://github.com/jamilydev/Petcare_Sistema.git](https://github.com/jamilydev/Petcare_Sistema.git)
+cd Petcare_Sistema
+```
+Instale as dependências:
+```
+Bash
+
+pip install -r requirements.txt
+```
+Execute a aplicação:
+```
+Bash
+
+python main.py
+```
+Acesse no navegador: Abra http://localhost:5000
+
+
+
+🎓 Contexto Acadêmico
+Este projeto foi desenvolvido para a disciplina de Programação Orientada a Objetos no Instituto de Informática (INF/UFG), demonstrando a aplicação prática de:
+
+Classes, Atributos e Métodos.
+
+Encapsulamento.
+
+Relacionamento entre Classes (Associação/Composição).
+
+Persistência em Banco de Dados Relacional.
+
+Desenvolvido por Jamily, Gustavo Alves, Gustavo Duarte e Julia Pereira.
+
+
+
