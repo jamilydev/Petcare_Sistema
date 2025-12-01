@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetCare - Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="container">
+        <header class="header-dono">
+            <h1>Olá, {{ dono.nome }}!</h1>
+            <p>Vamos cuidar dos seus pets hoje</p>
+        </header>
+
+       <div class="card-pontos">
+            <div class="info-nivel">
+                <span class="icone-trofeu">🏆</span>
+                <h2>Nível {{ recompensa.nivel if recompensa else 1 }}</h2>
+            </div>
+            
+            <div class="barra-progresso">
+                <div class="progresso" style="width: {{ porcentagem }}%;"></div>
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 10px;">
+                <span>⭐ {{ recompensa.pontos if recompensa else 0 }} pontos totais</span>
+                <span>Faltam {{ falta_pontos }} pts para o próximo nível 🚀</span>
+            </div>
+            
+            <p class="pontos-texto">⭐ {{ recompensa.pontos if recompensa else 0 }} pontos</p>
+
+            <hr style="border-color: rgba(255,255,255,0.3); margin: 15px 0;">
+            
+            <form action="/dar_pontos" method="POST" style="display: flex; gap: 10px; justify-content: center;">
+                <input type="hidden" name="dono_id" value="{{ dono.id }}">
+                
+                <input type="number" name="pontos" placeholder="+ Pts" required 
+                       style="width: 80px; padding: 5px; border-radius: 5px; border: none; margin: 0;">
+                
+                <button type="submit" 
+                        style="background-color: #FFD700; color: #4B0082; border: none; padding: 5px 15px; border-radius: 5px; font-weight: bold; cursor: pointer;">
+                    Adicionar
+                </button>
+            </form>
+        </div>
+
+        <h3>Meus Pets</h3>
+        <div class="lista-pets">
+            {% for pet in pets %}
+            <div class="card-pet" style="justify-content: space-between;">
+                <div style="display: flex; align-items: center;">
+                    <div class="pet-avatar">🐶</div>
+                    <div class="pet-info">
+                        <h4>{{ pet.nome }}</h4>
+                        <p>{{ pet.especie }} - {{ pet.raca }}</p>
+                    </div>
+                </div>
+                
+                <form action="/deletar/pet/{{ pet.id }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este pet?');">
+                    <input type="hidden" name="dono_id" value="{{ dono.id }}">
+                    <button type="submit" style="background: none; border: none; cursor: pointer; font-size: 20px;">
+                        🗑️
+                    </button>
+                </form>
+            </div>
+            {% else %}
+            <p>Você ainda não tem pets cadastrados.</p>
+            {% endfor %}
+        </div>
+        <hr style="margin: 30px 0;">
+
+        <div style="text-align: center; margin-bottom: 20px;">
+            <form action="/deletar/dono/{{ dono.id }}" method="POST" onsubmit="return confirm('ATENÇÃO: Isso apagará o dono, os pontos e todos os pets! Confirmar?');">
+                <button type="submit" class="btn-perigo">
+                    ❌ Excluir Conta e Dados
+                </button>
+            </form>
+        </div>
+
+        <a href="/" class="link-voltar">Voltar ao Menu</a>
+    </div>
+
+</body>
+</html>

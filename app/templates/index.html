@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>PetCare - Início</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container menu-principal">
+        <header class="header-dono">
+            <h1>🐶 PetCare Admin</h1>
+            <p>Gerencie sua clínica de forma simples</p>
+        </header>
+
+        <div class="grid-botoes">
+            <a href="/novo/dono" class="btn-menu">👤 Cadastrar Dono</a>
+            <a href="/novo/pet" class="btn-menu">🐾 Cadastrar Pet</a>
+            <a href="/novo/veterinario" class="btn-menu">👨‍⚕️ Cadastrar Veterinário</a>
+            <a href="/nova/consulta" class="btn-menu">📅 Agendar Consulta</a>
+        </div>
+        
+        <br>
+        <a href="/clientes" class="btn-salvar" style="text-decoration:none; display:block;">
+            📊 Acessar Dashboards dos Clientes
+        </a>
+
+    </div>
+</body>
+</html>

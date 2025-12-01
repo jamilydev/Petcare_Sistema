@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Selecionar Cliente</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="header-dono">
+            <h1>📋 Lista de Clientes</h1>
+            <p>Selecione um cliente para ver o Dashboard</p>
+        </header>
+
+        <div class="lista-clientes">
+            {% for dono in donos %}
+            <a href="/dashboard/{{ dono.id }}" class="card-cliente-link">
+                <div class="card-pet"> <div class="pet-avatar">👤</div>
+                    <div class="pet-info">
+                        <h4>{{ dono.nome }}</h4>
+                        <p>{{ dono.email }}</p>
+                    </div>
+                    <div class="seta-ir">➔</div>
+                </div>
+            </a>
+            {% else %}
+                <p style="text-align:center">Nenhum cliente cadastrado.</p>
+                <div style="text-align:center">
+                    <a href="/novo/dono" class="btn-salvar" style="width:auto; display:inline-block">Cadastrar Novo</a>
+                </div>
+            {% endfor %}
+        </div>
+
+        <a href="/" class="link-voltar">Voltar ao Menu</a>
+    </div>
+</body>
+</html>

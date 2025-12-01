@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Novo Pet</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Cadastrar Pet</h2>
+        <form method="POST" action="/novo/pet">
+            <label>Nome do Pet:</label>
+            <input type="text" name="nome" required>
+
+            <label>Dono:</label>
+            <select name="dono_id" required>
+                {% for dono in donos %}
+                    <option value="{{ dono.id }}">{{ dono.nome }}</option>
+                {% endfor %}
+            </select>
+
+            <label>Espécie:</label>
+            <select name="especie">
+                <option value="Cachorro">Cachorro</option>
+                <option value="Gato">Gato</option>
+                <option value="Outro">Outro</option>
+            </select>
+
+            <label>Raça:</label>
+            <input type="text" name="raca">
+
+            <div class="row">
+                <div>
+                    <label>Idade:</label>
+                    <input type="number" name="idade">
+                </div>
+                <div>
+                    <label>Peso (kg):</label>
+                    <input type="number" step="0.1" name="peso">
+                </div>
+            </div>
+
+            <button type="submit" class="btn-salvar">Salvar Pet</button>
+        </form>
+        <a href="/" class="link-voltar">Voltar</a>
+    </div>
+</body>
+</html>

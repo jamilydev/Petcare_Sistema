@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nova Consulta</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Agendar Consulta</h2>
+        <form method="POST" action="/nova/consulta">
+            <label>Data:</label>
+            <input type="date" name="data" required>
+
+            <label>Hora:</label>
+            <input type="time" name="hora" required>
+
+            <label>Veterinário:</label>
+            <select name="veterinario_id" required>
+                {% for vet in vets %}
+                    <option value="{{ vet.id }}">{{ vet.nome }} ({{ vet.especialidade }})</option>
+                {% endfor %}
+            </select>
+
+            <label>Paciente (Pet):</label>
+            <select name="pet_id" required>
+                {% for pet in pets %}
+                    <option value="{{ pet.id }}">{{ pet.nome }} ({{ pet.especie }})</option>
+                {% endfor %}
+            </select>
+
+            <label>Motivo:</label>
+            <input type="text" name="motivo" placeholder="Ex: Vacinação, Checkup...">
+
+            <button type="submit" class="btn-salvar">Agendar</button>
+        </form>
+        <a href="/" class="link-voltar">Voltar</a>
+    </div>
+</body>
+</html>

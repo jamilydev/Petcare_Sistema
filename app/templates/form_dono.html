@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Novo Dono</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Cadastrar Dono</h2>
+        <form method="POST" action="/novo/dono">
+            <label>Nome:</label>
+            <input type="text" name="nome" required placeholder="Ex: João Silva">
+
+            <label>Email:</label>
+            <input type="email" name="email" required placeholder="joao@email.com">
+
+            <label>Telefone:</label>
+            <input type="text" name="telefone" placeholder="(11) 99999-9999">
+
+            <button type="submit" class="btn-salvar">Salvar Dono</button>
+        </form>
+        <a href="/" class="link-voltar">Voltar</a>
+    </div>
+</body>
+</html>

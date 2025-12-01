@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Novo Veterinário</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Cadastrar Veterinário</h2>
+        <form method="POST" action="/novo/veterinario">
+            <label>Nome Completo:</label>
+            <input type="text" name="nome" required placeholder="Ex: Dr. Carlos Silva">
+
+            <label>CRMV (Registro):</label>
+            <input type="text" name="crmv" required placeholder="Ex: GO-12345">
+
+            <label>Especialidade:</label>
+            <input type="text" name="especie" required placeholder="Ex: Clínico Geral, Cirurgião...">
+
+            <label>Telefone:</label>
+            <input type="text" name="telefone" placeholder="(62) 99999-9999">
+
+            <label>Email:</label>
+            <input type="email" name="email" placeholder="veterinario@email.com">
+
+            <button type="submit" class="btn-salvar">Salvar Veterinário</button>
+        </form>
+        <a href="/" class="link-voltar">Voltar</a>
+    </div>
+</body>
+</html>

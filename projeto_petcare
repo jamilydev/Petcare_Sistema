@@ -1,0 +1,51 @@
+projeto_petcare/
+│
+├── app/
+│   ├── __init__.py                # Configura o Flask e registra as Rotas (Blueprints)
+│   │
+│   ├── dao/                       # Camada de Acesso ao Banco (SQL)
+│   │   ├── __init__.py
+│   │   ├── ConsultaDAO.py
+│   │   ├── DonoDAO.py
+│   │   ├── PetDAO.py
+│   │   ├── RecompensaDAO.py
+│   │   ├── VacinaDAO.py
+│   │   └── VeterinarioDAO.py
+│   │
+│   ├── database/
+│   │   └── petcare.db             # O banco de dados (gerado automaticamente)
+│   │
+│   ├── model/                     # Classes do Sistema (Objetos)
+│   │   ├── __init__.py
+│   │   ├── Consulta.py
+│   │   ├── Dono.py
+│   │   ├── Pet.py
+│   │   ├── Recompensa.py
+│   │   ├── Vacina.py
+│   │   └── Veterinario.py
+│   │
+│   ├── routes/                    # Rotas (Controladores)
+│   │   ├── __init__.py
+│   │   ├── consulta_routes.py     # API (Insomnia)
+│   │   ├── dono_routes.py         # API (Insomnia)
+│   │   ├── pet_routes.py          # API (Insomnia)
+│   │   ├── recompensa_routes.py   # API (Insomnia)
+│   │   ├── vacina_routes.py       # API (Insomnia)
+│   │   ├── veterinario_routes.py  # API (Insomnia)
+│   │   └── web_routes.py          # <--- Lógica do Site/Telas (Frontend)
+│   │
+│   ├── static/                    # Arquivos Estáticos (CSS, Imagens, JS)
+│   │   └── style.css              # Seu arquivo de estilos (Roxo/Visual)
+│   │
+│   └── templates/                 # Páginas HTML (Interface Visual)
+│       ├── dashboard.html         # Painel do Dono (Pets + Pontos)
+│       ├── form_consulta.html     # Agendar Consulta
+│       ├── form_dono.html         # Cadastrar Dono
+│       ├── form_pet.html          # Cadastrar Pet
+│       ├── form_vet.html          # Cadastrar Veterinário
+│       ├── index.html             # Menu Principal (Home)
+│       └── lista_clientes.html    # Lista de clientes para acessar Dashboard
+│
+├── .gitignore                     # Configuração do Git (o que não enviar)
+├── main.py                        # Arquivo principal (Roda o servidor)
+└── requirements.txt               # Lista de dependências (Flask, etc.)
