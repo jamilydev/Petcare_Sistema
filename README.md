@@ -27,6 +27,20 @@ Um diferencial do projeto é o módulo de **Gamificação**, onde os donos acumu
 * **Frontend:** HTML5, CSS3 (Design Responsivo)
 * **Arquitetura:** MVC (Model-View-Controller) com DAO (Data Access Object)
 
+# 🎓 Contexto Acadêmico
+
+Este projeto foi desenvolvido para a disciplina de Programação Orientada a Objetos no Instituto de Informática (INF/UFG), demonstrando a aplicação prática de:
+
+Classes, Atributos e Métodos.
+
+Encapsulamento.
+
+Relacionamento entre Classes (Associação/Composição).
+
+Persistência em Banco de Dados Relacional.
+
+### Desenvolvido por Jamily, Gustavo Alves, Gustavo Duarte e Julia Pereira.
+
 ## 📂 Estrutura do Projeto
 
 O projeto foi estruturado seguindo boas práticas de separação de responsabilidades:
@@ -72,18 +86,7 @@ Acesse no navegador: Abra http://localhost:5000
 
 
 
-#🎓 Contexto Acadêmico
-Este projeto foi desenvolvido para a disciplina de Programação Orientada a Objetos no Instituto de Informática (INF/UFG), demonstrando a aplicação prática de:
 
-Classes, Atributos e Métodos.
-
-Encapsulamento.
-
-Relacionamento entre Classes (Associação/Composição).
-
-Persistência em Banco de Dados Relacional.
-
-###Desenvolvido por Jamily, Gustavo Alves, Gustavo Duarte e Julia Pereira.
 
 
 
