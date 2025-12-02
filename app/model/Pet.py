@@ -1,12 +1,13 @@
 class Pet:
-    def __init__(self, nome, dono_id, especie, raca, idade, peso, id=None):
+    def __init__(self, nome, dono_id, especie, raca, idade, peso, data_nascimento, id=None):
         self.id = id
         self.nome = nome
-        self.dono_id = dono_id  # ID do dono no banco de dados
+        self.dono_id = dono_id
         self.especie = especie
         self.raca = raca
         self.idade = idade
         self.peso = peso
+        self.data_nascimento = data_nascimento # <--- Novo Campo
 
     def to_dict(self):
         return {
@@ -16,5 +17,6 @@ class Pet:
             "especie": self.especie,
             "raca": self.raca,
             "idade": self.idade,
-            "peso": self.peso
+            "peso": self.peso,
+            "data_nascimento": self.data_nascimento
         }

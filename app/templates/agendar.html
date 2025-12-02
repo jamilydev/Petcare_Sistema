@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <div class="header-simple">
+            <a href="/tutor/dashboard" style="float:left; text-decoration:none; color: #999;">
+                <i class="fa-solid fa-arrow-left"></i> Voltar
+            </a>
+            <h3>Agendamento</h3>
+        </div>
+
+        <div style="padding: 20px; max-width: 600px; margin: 0 auto;">
+            <div style="text-align: center; margin-bottom: 30px;">
+                <i class="fa-solid fa-calendar-days" style="font-size: 50px; color: var(--primary);"></i>
+                <p>Agende consultas ou vacinas para seus pets.</p>
+            </div>
+            
+            <form method="POST" action="/tutor/agendar">
+                <label><i class="fa-solid fa-paw"></i> Qual Pet?</label>
+                <select name="pet_id" required>
+                    {% for pet in pets %}
+                    <option value="{{ pet.id }}">{{ pet.nome }}</option>
+                    {% endfor %}
+                </select>
+
+                <label><i class="fa-solid fa-stethoscope"></i> Motivo</label>
+                <select name="motivo">
+                    <option value="Consulta de Rotina">Consulta de Rotina</option>
+                    <option value="Vacina: V8/V10">Vacina: Múltipla (V8/V10)</option>
+                    <option value="Vacina: Antirrábica">Vacina: Antirrábica</option>
+                </select>
+
+                <label><i class="fa-solid fa-clock"></i> Horários Disponíveis</label>
+                <select name="vaga_id" required style="border: 2px solid var(--primary);">
+                    <option value="" disabled selected>Selecione um horário...</option>
+                    {% for vaga in vagas %}
+                        <option value="{{ vaga.id }}">{{ vaga.texto }}</option>
+                    {% else %}
+                        <option value="" disabled>Nenhum horário disponível no momento.</option>
+                    {% endfor %}
+                </select>
+                
+                {% if not vagas %}
+                <p style="font-size: 12px; color: #ff4d4d; text-align: center;">
+                    Sem vagas? Peça para seu veterinário abrir a agenda!
+                </p>
+                {% endif %}
+
+                <button type="submit" class="btn-primary" {% if not vagas %}disabled style="opacity:0.5"{% endif %}>
+                    Confirmar Agendamento
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="/tutor/dashboard" class="nav-item">
+            <i class="nav-icon fa-solid fa-house"></i>
+            <span class="nav-label">Início</span>
+        </a>
+        <a href="/tutor/agendar" class="nav-item active">
+            <i class="nav-icon fa-solid fa-calendar-plus"></i>
+            <span class="nav-label">Agendar</span>
+        </a>
+        <a href="/tutor/perfil" class="nav-item">
+            <i class="nav-icon fa-solid fa-user"></i>
+            <span class="nav-label">Conta</span>
+        </a>
+    </nav>
+</body>
+</html>

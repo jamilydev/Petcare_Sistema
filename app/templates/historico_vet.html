@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="vet-theme">
+    <div class="app-container">
+        <div class="header-pink" style="text-align: center;">
+            <h3>Agenda & Histórico</h3>
+        </div>
+
+        <div style="padding: 20px;">
+            <h4 style="color: var(--pink-dark); margin-bottom: 10px;">📅 Próximas Consultas</h4>
+            {% for item in agendadas %}
+            <div class="card" style="border-left: 5px solid var(--pink-primary);">
+                <div>
+                    <h4>{{ item.pet_nome }}</h4>
+                    <p>{{ item.data }} às <strong>{{ item.hora }}</strong></p>
+                    <p style="color: #666; font-size: 12px;">{{ item.motivo }}</p>
+                </div>
+            </div>
+            {% else %}
+            <p style="color:#999;">Nenhuma consulta futura agendada.</p>
+            {% endfor %}
+
+            <hr style="border: 0; border-top: 1px solid #ddd; margin: 20px 0;">
+
+            <h4 style="color: #666; margin-bottom: 10px;">📂 Realizadas / Passadas</h4>
+            {% for item in realizadas %}
+            <div class="card" style="background: #f9f9f9; opacity: 0.8;">
+                <div>
+                    <h4 style="color: #555; text-decoration: line-through;">{{ item.pet_nome }}</h4>
+                    <p>{{ item.data }} - Finalizada</p>
+                </div>
+                <i class="fa-solid fa-circle-check" style="color: var(--success); font-size: 20px; margin-left: auto;"></i>
+            </div>
+            {% else %}
+            <p style="color:#999;">Nenhum histórico disponível.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="/vet/dashboard" class="nav-item">
+            <i class="nav-icon fa-solid fa-house-medical"></i><span class="nav-label">Início</span>
+        </a>
+        <a href="/vet/prontuario" class="nav-item">
+            <i class="nav-icon fa-solid fa-file-medical"></i><span class="nav-label">Prontuário</span>
+        </a>
+        <a href="/vet/historico" class="nav-item active-pink">
+            <i class="nav-icon fa-solid fa-calendar"></i><span class="nav-label">Agenda</span>
+        </a>
+        <a href="/vet/perfil" class="nav-item">
+            <i class="nav-icon fa-solid fa-user-doctor"></i><span class="nav-label">Perfil</span>
+        </a>
+    </nav>
+</body>
+</html>

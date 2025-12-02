@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="{{ 'vet-theme' if tipo == 'veterinario' else '' }}">
+    
+    <div class="mobile-container" style="{{ 'background-color: var(--pink-light);' if tipo == 'veterinario' else '' }}">
+        <div class="header-simple">
+            <a href="/" style="float:left; text-decoration:none; color: #999; font-size: 20px;">
+                <i class="fa-solid fa-chevron-left"></i>
+            </a>
+            
+            <h2 style="color: {{ 'var(--pink-primary)' if tipo == 'veterinario' else ('#d32f2f' if tipo == 'admin' else 'var(--primary)') }};">
+                {% if tipo == 'admin' %}
+                    Acesso Admin
+                {% elif tipo == 'veterinario' %}
+                    Login Veterinário
+                {% else %}
+                    Login Tutor
+                {% endif %}
+            </h2>
+        </div>
+
+        <div style="padding: 30px;">
+            <div style="text-align:center; margin-bottom:30px;">
+                <div style="font-size: 50px; color: {{ 'var(--pink-primary)' if tipo == 'veterinario' else ('#d32f2f' if tipo == 'admin' else 'var(--primary)') }}; margin-bottom: 10px;">
+                    {% if tipo == 'veterinario' %} <i class="fa-solid fa-user-doctor"></i>
+                    {% elif tipo == 'admin' %} <i class="fa-solid fa-user-shield"></i>
+                    {% else %} <i class="fa-solid fa-paw"></i> {% endif %}
+                </div>
+                
+                <h1 style="color: {{ 'var(--pink-primary)' if tipo == 'veterinario' else ('#d32f2f' if tipo == 'admin' else 'var(--primary)') }};">PET CARE</h1>
+                
+                {% if tipo == 'admin' %}
+                    <p style="color: #d32f2f; font-weight: bold;">Área Restrita</p>
+                {% else %}
+                    <p>Bem-vindo de volta!</p>
+                {% endif %}
+            </div>
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div style="background-color: #ffcccc; color: #cc0000; padding: 10px; border-radius: 10px; margin-bottom: 20px; text-align: center; border: 1px solid #ff9999;">
+                            <i class="fa-solid fa-triangle-exclamation"></i> {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <form method="POST">
+                <label>Email</label>
+                <input type="email" name="email" placeholder="admin@petcare.com" required>
+
+                <label>Senha</label>
+                <input type="password" name="senha" placeholder="********" required>
+
+                <button type="submit" class="{{ 'btn-pink' if tipo == 'veterinario' else 'btn-primary' }}"
+                        style="{{ 'background-color: #d32f2f; box-shadow: 0 4px 10px rgba(211, 47, 47, 0.3);' if tipo == 'admin' else '' }}">
+                    Entrar
+                </button>
+            </form>
+
+            {% if tipo != 'admin' %}
+            <a href="/recuperar-senha" class="link-text" style="{{ 'color: var(--pink-primary);' if tipo == 'veterinario' else '' }}">
+                Esqueceu a senha?
+            </a>
+            
+            <div style="margin-top: 30px; text-align: center;">
+                <p>Não tem conta?</p>
+                {% if tipo == 'tutor' %}
+                    <a href="/register/tutor" class="btn-outline">Cadastre-se como Tutor</a>
+                {% elif tipo == 'veterinario' %}
+                    <a href="/register/veterinario" class="btn-outline" style="color: var(--pink-primary); border-color: var(--pink-primary);">Cadastre-se como Vet</a>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
