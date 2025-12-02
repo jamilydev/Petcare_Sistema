@@ -20,7 +20,8 @@ def criar_pet():
         especie=data.get('especie'),
         raca=data.get('raca'),
         idade=data.get('idade'),
-        peso=data.get('peso')
+        peso=data.get('peso'),
+        data_nascimento=data.get('data_nascimento', '')
     )
     pet_salvo = dao.salvar(novo_pet)
     return jsonify(pet_salvo.to_dict()), 201

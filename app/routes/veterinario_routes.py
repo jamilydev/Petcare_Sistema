@@ -12,6 +12,8 @@ def get_vets():
 @vet_bp.route('/api/veterinarios', methods=['POST'])
 def criar_vet():
     data = request.json
-    vet = Veterinario(data['nome'], data['crmv'], data['especialidade'], data['telefone'], data['email'])
+    # Se senha não for fornecida, usa valor padrão temporário
+    senha = data.get('senha', '123456')
+    vet = Veterinario(data['nome'], data['crmv'], data['especialidade'], data['telefone'], data['email'], senha)
     salvo = dao.salvar(vet)
     return jsonify(salvo.to_dict()), 201

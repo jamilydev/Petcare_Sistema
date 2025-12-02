@@ -47,15 +47,32 @@ class DonoDAO:
         conn.commit()
         conn.close()
 
+    def buscar_por_email(self, email):
+        """Verifica se já existe um dono com este email"""
+        conn = self._conectar()
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM donos WHERE email = ?", (email,))
+        row = cursor.fetchone()
+        conn.close()
+        
+        if row:
+            return Dono(row[1], row[2], row[3], row[4], id=row[0])
+        return None
+    
     def salvar(self, dono: Dono):
         conn = self._conectar()
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO donos (nome, email, telefone, senha) VALUES (?, ?, ?, ?)",
-                       (dono.nome, dono._email, dono._telefone, dono.senha))
-        dono.id = cursor.lastrowid
-        conn.commit()
-        conn.close()
-        return dono
+        try:
+            cursor.execute("INSERT INTO donos (nome, email, telefone, senha) VALUES (?, ?, ?, ?)",
+                           (dono.nome, dono._email, dono._telefone, dono.senha))
+            dono.id = cursor.lastrowid
+            conn.commit()
+            conn.close()
+            return dono
+        except sqlite3.IntegrityError as e:
+            conn.rollback()
+            conn.close()
+            raise ValueError(f"Email '{dono._email}' já está cadastrado no sistema.")
 
     def autenticar(self, email, senha):
         conn = self._conectar()

@@ -12,7 +12,14 @@ def get_donos():
 
 @dono_bp.route('/api/donos', methods=['POST'])
 def criar_dono():
-    dados = request.json
-    novo_dono = Dono(dados['nome'], dados['email'], dados['telefone'])
-    dono_salvo = dao.salvar(novo_dono)
-    return jsonify(dono_salvo.to_dict()), 201
+    try:
+        dados = request.json
+        # Se senha não for fornecida, usa valor padrão temporário
+        senha = dados.get('senha', '123456')
+        novo_dono = Dono(dados['nome'], dados['email'], dados['telefone'], senha)
+        dono_salvo = dao.salvar(novo_dono)
+        return jsonify(dono_salvo.to_dict()), 201
+    except ValueError as e:
+        return jsonify({"erro": str(e)}), 400
+    except Exception as e:
+        return jsonify({"erro": "Erro ao criar dono", "detalhes": str(e)}), 500

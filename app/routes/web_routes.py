@@ -115,13 +115,20 @@ def register_pet():
         else:
             dados_dono = session.get('temp_dono')
             if not dados_dono: return redirect(url_for('web_bp.login', tipo='tutor'))
-            novo_dono = Dono(dados_dono['nome'], dados_dono['email'], dados_dono['telefone'], dados_dono['senha'])
-            dono_salvo = dono_dao.salvar(novo_dono)
-            dono_id = dono_salvo.id
-            session['user_id'] = dono_salvo.id
-            session['tipo'] = 'tutor'
-            session['nome'] = dono_salvo._nome 
-            session.pop('temp_dono', None)
+            try:
+                novo_dono = Dono(dados_dono['nome'], dados_dono['email'], dados_dono['telefone'], dados_dono['senha'])
+                dono_salvo = dono_dao.salvar(novo_dono)
+                dono_id = dono_salvo.id
+                session['user_id'] = dono_salvo.id
+                session['tipo'] = 'tutor'
+                session['nome'] = dono_salvo._nome 
+                session.pop('temp_dono', None)
+            except ValueError as e:
+                flash(str(e), 'error')
+                return redirect(url_for('web_bp.register_tutor'))
+            except Exception as e:
+                flash(f"Erro ao criar conta: {str(e)}", 'error')
+                return redirect(url_for('web_bp.register_tutor'))
 
         # Salva o Pet Completo
         novo_pet = Pet(nome, dono_id, especie, raca, idade, peso, data_nascimento)
