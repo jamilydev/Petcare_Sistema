@@ -4,20 +4,15 @@ from app.model.Dono import Dono
 
 class DonoDAO:
     def __init__(self):
-        # --- Bloco para resolver o problema de caminho do banco ---
-        # Pega o diretório onde este arquivo (DonoDAO.py) está
-        base_dir = os.path.dirname(os.path.abspath(__file__)) 
-        # Sobe um nível e entra na pasta database
-        db_dir = os.path.join(base_dir, '../database')        
-        # Define o arquivo final
-        self.db_path = os.path.join(db_dir, 'petcare.db')     
+        # Configuração do caminho do banco
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        db_dir = os.path.join(base_dir, '../database')
+        self.db_path = os.path.join(db_dir, 'petcare.db')
         
         # Garante que a pasta existe
         if not os.path.exists(db_dir):
             os.makedirs(db_dir)
-        # ---------------------------------------------------------
 
-        # Chama a função para criar a tabela (O erro estava aqui porque esta função abaixo não existia)
         self._criar_tabela()
 
     def _conectar(self):
@@ -31,7 +26,8 @@ class DonoDAO:
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 nome TEXT NOT NULL,
                 email TEXT NOT NULL UNIQUE,
-                telefone TEXT
+                telefone TEXT,
+                senha TEXT NOT NULL
             );
         """)
         conn.commit()
@@ -40,12 +36,35 @@ class DonoDAO:
     def salvar(self, dono: Dono):
         conn = self._conectar()
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO donos (nome, email, telefone) VALUES (?, ?, ?)",
-                       (dono._nome, dono._email, dono._telefone)) # <-- CORRIGIDO AQUI
+        cursor.execute("INSERT INTO donos (nome, email, telefone, senha) VALUES (?, ?, ?, ?)",
+                       (dono.nome, dono._email, dono._telefone, dono.senha))
         dono.id = cursor.lastrowid
         conn.commit()
         conn.close()
         return dono
+
+    def autenticar(self, email, senha):
+        conn = self._conectar()
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM donos WHERE email = ? AND senha = ?", (email, senha))
+        row = cursor.fetchone()
+        conn.close()
+        
+        if row:
+            # Retorna o objeto Dono se encontrou
+            return Dono(row[1], row[2], row[3], row[4], id=row[0])
+        return None
+
+    def atualizar(self, dono):
+        conn = self._conectar()
+        cursor = conn.cursor()
+        cursor.execute("""
+            UPDATE donos 
+            SET nome = ?, email = ?, telefone = ?
+            WHERE id = ?
+        """, (dono.nome, dono._email, dono._telefone, dono.id))
+        conn.commit()
+        conn.close()
 
     def listar(self):
         conn = self._conectar()
@@ -54,16 +73,21 @@ class DonoDAO:
         result = cursor.fetchall()
         conn.close()
         
-        donos = []
+        lista_donos = []
         for row in result:
-            # row[0]=id, row[1]=nome, row[2]=email, row[3]=telefone
-            obj = Dono(row[1], row[2], row[3], id=row[0])
-            donos.append(obj.to_dict())
-        return donos
+            try:
+                # Tenta criar com a senha (banco novo)
+                dono = Dono(row[1], row[2], row[3], row[4], id=row[0])
+            except IndexError:
+                # Se der erro (banco antigo sem senha), usa senha padrão
+                dono = Dono(row[1], row[2], row[3], "123456", id=row[0])
+            
+            lista_donos.append(dono.to_dict())
+        return lista_donos
 
     def excluir(self, id):
         conn = self._conectar()
         cursor = conn.cursor()
-        cursor.execute("DELETE FROM pets WHERE id = ?", (id,))
+        cursor.execute("DELETE FROM donos WHERE id = ?", (id,))
         conn.commit()
         conn.close()

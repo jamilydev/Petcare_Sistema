@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="vet-theme">
+    <div class="app-container">
+        <div class="header-pink" style="padding-bottom: 20px; text-align: center;">
+            <h3>Lançamento Clínico</h3>
+            <p style="color: rgba(255,255,255,0.8);">Registre vacinas ou consultas realizadas</p>
+        </div>
+
+        <div style="padding: 20px; max-width: 600px; margin: 0 auto;">
+            <form method="POST" action="/vet/prontuario">
+                
+                <label style="color: var(--pink-dark); font-weight: bold;">Selecione o Paciente</label>
+                <select name="pet_id" required>
+                    {% for pet in pets %}
+                    <option value="{{ pet.id }}">{{ pet.nome }} ({{ pet.especie }})</option>
+                    {% endfor %}
+                </select>
+
+                <label style="color: var(--pink-dark); font-weight: bold;">Tipo de Procedimento</label>
+                <select name="tipo" id="tipoSelect" onchange="toggleForm()" required>
+                    <option value="consulta">🩺 Consulta Clínica</option>
+                    <option value="vacina">💉 Aplicação de Vacina</option>
+                </select>
+
+                <div id="formConsulta">
+                    <label>Observações / Diagnóstico</label>
+                    <input type="text" name="observacoes" placeholder="Ex: Animal saudável, vermifugado...">
+                    
+                    <div style="display:flex; gap:10px;">
+                        <div style="flex:1;">
+                            <label>Data</label>
+                            <input type="date" name="data">
+                        </div>
+                        <div style="flex:1;">
+                            <label>Hora</label>
+                            <input type="time" name="hora">
+                        </div>
+                    </div>
+                </div>
+
+                <div id="formVacina" style="display:none;">
+                    <label>Nome da Vacina</label>
+                    <input type="text" name="nome_vacina" placeholder="Ex: V10, Raiva...">
+                    
+                    <div style="display:flex; gap:10px;">
+                        <div style="flex:1;">
+                            <label>Data Aplicação</label>
+                            <input type="date" name="data_vacina">
+                        </div>
+                        <div style="flex:1;">
+                            <label>Validade (Próx. Dose)</label>
+                            <input type="date" name="validade">
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-pink" style="margin-top: 20px;">
+                    <i class="fa-solid fa-check"></i> Salvar Registro
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="/vet/dashboard" class="nav-item">
+            <i class="nav-icon fa-solid fa-house-medical"></i><span class="nav-label">Início</span>
+        </a>
+        <a href="/vet/prontuario" class="nav-item active-pink">
+            <i class="nav-icon fa-solid fa-file-medical"></i><span class="nav-label">Prontuário</span>
+        </a>
+        <a href="/vet/historico" class="nav-item">
+            <i class="nav-icon fa-solid fa-calendar"></i><span class="nav-label">Agenda</span>
+        </a>
+        <a href="/vet/perfil" class="nav-item">
+            <i class="nav-icon fa-solid fa-user-doctor"></i><span class="nav-label">Perfil</span>
+        </a>
+    </nav>
+
+    <script>
+        function toggleForm() {
+            var tipo = document.getElementById("tipoSelect").value;
+            if(tipo === 'vacina') {
+                document.getElementById("formVacina").style.display = "block";
+                document.getElementById("formConsulta").style.display = "none";
+            } else {
+                document.getElementById("formVacina").style.display = "none";
+                document.getElementById("formConsulta").style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>

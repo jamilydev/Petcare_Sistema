@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="vet-theme">
+    <div class="app-container">
+        <div class="header-pink" style="text-align: center;">
+            <h3>Minha Disponibilidade</h3>
+            <p style="color: rgba(255,255,255,0.8);">Defina seus turnos de trabalho</p>
+        </div>
+
+        <div style="padding: 20px;">
+            
+            <div class="card" style="margin-top: -40px; margin-bottom: 20px; max-width: 500px; margin-left: auto; margin-right: auto; padding: 30px;">
+               
+                
+                <form method="POST" action="/vet/disponibilidade">
+                    <label style="font-weight:bold; color:#555;">Em qual dia?</label>
+                    <input type="date" name="data" required>
+
+                    <div style="display:flex; gap:15px;">
+                        <div style="flex:1;">
+                            <label style="font-size:12px;">Começa às:</label>
+                            <input type="time" name="inicio" required>
+                        </div>
+                        <div style="flex:1;">
+                            <label style="font-size:12px;">Termina às:</label>
+                            <input type="time" name="fim" required>
+                        </div>
+                    </div>
+
+                    <label style="font-size:12px;">Tempo de cada consulta:</label>
+                    <select name="intervalo">
+                        <option value="30">30 minutos (Padrão)</option>
+                        <option value="15">15 minutos (Rápido)</option>
+                        <option value="60">1 hora (Completo)</option>
+                    </select>
+
+                    <button type="submit" class="btn-pink" style="margin-top: 20px;">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Horários
+                    </button>
+                </form>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin: 25px 0 10px 0;">
+                <h4 style="color: #666;">Horários Abertos</h4>
+                <span style="background:var(--pink-light); color:var(--pink-primary); padding:2px 8px; border-radius:10px; font-size:12px; font-weight:bold;">
+                    Total: {{ vagas|length }}
+                </span>
+            </div>
+
+            {% for vaga in vagas %}
+            <div class="card" style="justify-content: space-between; padding: 15px; margin-bottom: 10px; border-left: 4px solid {% if vaga.status == 'livre' %}#00C851{% else %}#ccc{% endif %};">
+                <div>
+                    <p style="margin: 0; font-size: 14px;">
+                        <i class="fa-regular fa-calendar"></i> {{ vaga.data }} 
+                        <strong style="font-size: 16px; margin-left: 10px;">{{ vaga.hora }}</strong>
+                    </p>
+                    {% if vaga.status == 'ocupado' %}
+                        <span style="font-size: 10px; color: #999;">Reservado</span>
+                    {% endif %}
+                </div>
+                
+                {% if vaga.status == 'livre' %}
+                <a href="/vet/disponibilidade?delete_id={{ vaga.id }}" style="color: var(--danger); opacity: 0.7;">
+                    <i class="fa-solid fa-trash-can"></i>
+                </a>
+                {% endif %}
+            </div>
+            {% else %}
+            <div style="text-align: center; color: #bbb; margin-top: 30px;">
+                <i class="fa-regular fa-calendar-xmark" style="font-size: 40px; margin-bottom: 10px;"></i>
+                <p>Nenhum horário disponível.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="/vet/dashboard" class="nav-item active-pink">
+            <i class="nav-icon fa-solid fa-house-medical"></i><span class="nav-label">Início</span>
+        </a>
+        <a href="/vet/prontuario" class="nav-item">
+            <i class="nav-icon fa-solid fa-file-medical"></i><span class="nav-label">Prontuário</span>
+        </a>
+        <a href="/vet/historico" class="nav-item">
+            <i class="nav-icon fa-solid fa-calendar"></i><span class="nav-label">Agenda</span>
+        </a>
+        <a href="/vet/perfil" class="nav-item">
+            <i class="nav-icon fa-solid fa-user-doctor"></i><span class="nav-label">Perfil</span>
+        </a>
+    </nav>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bem-vindo ao PetCare</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <div id="myOverlay" class="menu-overlay" onclick="toggleMenu()"></div>
+
+    <div id="mySidenav" class="side-menu">
+        <div class="side-menu-header">
+            PetCare Menu
+            <button class="close-btn" onclick="toggleMenu()">&times;</button>
+        </div>
+        
+        <a href="#"><i class="fa-solid fa-circle-info" style="width: 25px;"></i> Sobre o App</a>
+        <a href="#"><i class="fa-solid fa-phone" style="width: 25px;"></i> Contato</a>
+        <a href="#"><i class="fa-solid fa-file-contract" style="width: 25px;"></i> Termos de Uso</a>
+        
+        <a href="/login/admin" style="margin-top: auto; background-color: #fff0f0; color: #ff4d4d;">
+            <i class="fa-solid fa-lock" style="width: 25px;"></i> Área Administrativa
+        </a>
+    </div>
+
+    <div class="app-container">
+        
+        <div class="header-purple" style="border-radius: 0 0 30px 30px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <i class="fa-solid fa-paw" style="font-size: 24px;"></i>
+                <span style="font-size: 20px; font-weight: bold;">PetCare</span>
+            </div>
+            
+            <i class="fa-solid fa-bars menu-btn" onclick="toggleMenu()"></i>
+        </div>
+
+        <div style="text-align: center; padding: 40px 20px; background: white; border-radius: 30px; margin: 20px; box-shadow: 0 10px 30px rgba(138, 43, 226, 0.1);">
+            
+            <h1 style="color: var(--primary); margin-bottom: 10px;">Cuidado Completo</h1>
+            <p style="font-size: 16px;">Gerencie vacinas, consultas e ganhe pontos cuidando do seu melhor amigo.</p>
+        </div>
+
+        <h3 style="text-align: center; margin: 30px 0 20px 0; color: var(--text-dark);">Como deseja acessar?</h3>
+
+        <div class="grid-layout" style="padding-top: 0;">
+            
+            <a href="/login/tutor" style="text-decoration: none; color: inherit;">
+                <div class="card" style="flex-direction: column; text-align: center; padding: 30px; height: 100%;">
+                    <div style="font-size: 40px; color: var(--primary); margin-bottom: 15px;">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <h3 style="color: var(--primary);">Sou Tutor</h3>
+                    <p>Quero cuidar dos meus pets e acompanhar a saúde deles.</p>
+                    <span class="btn-primary" style="margin-top: 20px;">Entrar como Tutor</span>
+                </div>
+            </a>
+
+           <a href="/login/veterinario" style="text-decoration: none; color: inherit;">
+                <div class="card" style="flex-direction: column; text-align: center; padding: 30px; height: 100%; border-bottom: 4px solid var(--pink-primary);">
+                    <div style="font-size: 40px; color: var(--pink-primary); margin-bottom: 15px;">
+                        <i class="fa-solid fa-user-doctor"></i>
+                    </div>
+                    <h3 style="color: var(--pink-primary);">Sou Veterinário</h3>
+                    <p>Quero gerenciar minha agenda e pacientes.</p>
+                    
+                    <span class="btn-outline" style="margin-top: 20px; color: var(--pink-primary); border-color: var(--pink-primary);">
+                        Área do Profissional
+                    </span>
+                </div>
+            </a>
+
+        </div>
+
+        <p style="text-align: center; margin-top: 20px; color: #999; font-size: 12px;">© 2025 PetCare System</p>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById("mySidenav");
+            const overlay = document.getElementById("myOverlay");
+            
+            // Adiciona ou remove a classe "aberto" (definida no CSS)
+            menu.classList.toggle("aberto");
+            overlay.classList.toggle("aberto");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="vet-theme">
+    <div class="app-container">
+        <div class="header-pink" style="text-align: center; padding-bottom: 50px;">
+            <h3>Configurações</h3>
+        </div>
+
+        <div style="padding: 20px; max-width: 600px; margin: 0 auto; margin-top: -40px;">
+            <div class="card" style="flex-direction: column; text-align: center;">
+                <div class="pet-avatar" style="background:white; color:var(--pink-primary); width: 80px; height: 80px; font-size: 35px; margin: 0 auto 15px auto; border: 4px solid var(--pink-light);">
+                    <i class="fa-solid fa-user-doctor"></i>
+                </div>
+                <h3 style="color: var(--pink-primary);">{{ vet.nome }}</h3>
+                <p>CRMV: {{ vet.crmv }}</p>
+                <p style="color: #666;">{{ vet.especialidade }}</p>
+            </div>
+
+            <h3 style="margin: 20px 0 10px 0; color: var(--pink-dark);">Conta</h3>
+            <div class="card" style="display: block; padding: 0;">
+                <ul style="list-style:none; padding:0; margin:0;">
+                    <li style="padding:15px; border-bottom:1px solid #eee;">
+                        <i class="fa-solid fa-pen" style="width: 25px; color: var(--pink-primary);"></i> Editar Dados
+                    </li>
+                    <li style="padding:15px; border-bottom:1px solid #eee;">
+                        <i class="fa-solid fa-lock" style="width: 25px; color: var(--pink-primary);"></i> Alterar Senha
+                    </li>
+                    <li style="padding:15px;">
+                        <i class="fa-solid fa-clock" style="width: 25px; color: var(--pink-primary);"></i> Horários de Atendimento
+                    </li>
+                </ul>
+            </div>
+
+            <a href="/logout" class="btn-pink" style="background-color: transparent; border: 2px solid #ff4d4d; color: #ff4d4d; margin-top: 20px;">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> Sair
+            </a>
+        </div>
+    </div>
+    
+    <nav class="bottom-nav">
+        <a href="/vet/dashboard" class="nav-item">
+            <i class="nav-icon fa-solid fa-house-medical"></i><span class="nav-label">Início</span>
+        </a>
+        <a href="/vet/prontuario" class="nav-item">
+            <i class="nav-icon fa-solid fa-file-medical"></i><span class="nav-label">Prontuário</span>
+        </a>
+        <a href="/vet/historico" class="nav-item">
+            <i class="nav-icon fa-solid fa-calendar"></i><span class="nav-label">Agenda</span>
+        </a>
+        <a href="/vet/perfil" class="nav-item active-pink">
+            <i class="nav-icon fa-solid fa-user-doctor"></i><span class="nav-label">Perfil</span>
+        </a>
+    </nav>
+</body>
+</html>

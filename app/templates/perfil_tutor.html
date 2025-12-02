@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script>
+        function toggleSenha() {
+            var input = document.getElementById("senhaInput");
+            if (input.type === "password") {
+                input.type = "text";
+            } else {
+                input.type = "password";
+            }
+        }
+        
+        function msgFuncionalidade() {
+            alert("Em um sistema real, isso enviaria um email de recuperação ou abriria as configurações do celular!");
+        }
+    </script>
+</head>
+<body>
+    <div class="app-container">
+        <div class="header-purple" style="justify-content: center; padding-bottom: 60px;">
+            <h2>Minha Conta</h2>
+        </div>
+
+        <div style="padding: 20px; max-width: 600px; margin: 0 auto; margin-top: -50px;">
+            
+            <form action="/tutor/perfil/atualizar" method="POST">
+                <div class="card" style="flex-direction: column; text-align: center; padding-top: 30px; position: relative;">
+                    
+                    <div class="pet-avatar" style="background:var(--secondary); color:white; width: 90px; height: 90px; font-size: 40px; margin: -60px auto 20px auto; border: 5px solid white;">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+
+                    <div style="width: 100%; text-align: left;">
+                        <label style="font-size: 12px; font-weight: bold; color: var(--primary); margin-left: 5px;">Nome Completo</label>
+                        <div style="position: relative;">
+                            <input type="text" name="nome" value="{{ dono.nome }}" required style="padding-left: 40px;">
+                            <i class="fa-solid fa-user-pen" style="position: absolute; left: 15px; top: 18px; color: #aaa;"></i>
+                        </div>
+
+                        <label style="font-size: 12px; font-weight: bold; color: var(--primary); margin-left: 5px;">Email</label>
+                        <div style="position: relative;">
+                            <input type="email" name="email" value="{{ dono.email }}" required style="padding-left: 40px;">
+                            <i class="fa-solid fa-envelope" style="position: absolute; left: 15px; top: 18px; color: #aaa;"></i>
+                        </div>
+
+                        <label style="font-size: 12px; font-weight: bold; color: var(--primary); margin-left: 5px;">Telefone</label>
+                        <div style="position: relative;">
+                            <input type="text" name="telefone" value="{{ dono.telefone }}" placeholder="(xx) 99999-9999" style="padding-left: 40px;">
+                            <i class="fa-solid fa-phone" style="position: absolute; left: 15px; top: 18px; color: #aaa;"></i>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary" style="margin-top: 10px;">
+                        <i class="fa-solid fa-floppy-disk"></i> Salvar Alterações
+                    </button>
+                </div>
+            </form>
+
+            <h3 style="margin: 25px 0 10px 0;">Configurações</h3>
+            <div class="card" style="display: block; padding: 0; overflow: hidden;">
+                <ul style="list-style:none; padding:0; margin:0;">
+                    
+                    <li style="padding:15px; border-bottom:1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
+                        <div><i class="fa-solid fa-bell" style="width: 25px; color: var(--primary);"></i> Notificações</div>
+                        <label class="switch" style="position: relative; display: inline-block; width: 40px; height: 20px;">
+                            <input type="checkbox" checked>
+                            <span style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; border-radius: 20px; transition: .4s;"></span>
+                        </label>
+                    </li>
+
+                    <li style="padding:15px; border-bottom:1px solid #eee; cursor: pointer;" onclick="document.getElementById('modalSenha').style.display='block'">
+                        <i class="fa-solid fa-lock" style="width: 25px; color: var(--primary);"></i> Alterar Senha
+                        <i class="fa-solid fa-chevron-right" style="float: right; color: #ddd;"></i>
+                    </li>
+
+                    <li style="padding:15px; border-bottom:1px solid #eee; cursor: pointer;" onclick="msgFuncionalidade()">
+                        <i class="fa-solid fa-circle-question" style="width: 25px; color: var(--primary);"></i> Ajuda e Suporte
+                        <i class="fa-solid fa-chevron-right" style="float: right; color: #ddd;"></i>
+                    </li>
+
+                    <li style="padding:15px; cursor: pointer;" onclick="msgFuncionalidade()">
+                        <i class="fa-solid fa-file-contract" style="width: 25px; color: var(--primary);"></i> Termos de Uso
+                        <i class="fa-solid fa-chevron-right" style="float: right; color: #ddd;"></i>
+                    </li>
+                </ul>
+            </div>
+
+            <a href="/logout" class="btn-outline" style="border-color:#ff4d4d; color:#ff4d4d; margin-top: 25px;">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> Sair da Conta
+            </a>
+        </div>
+    </div>
+
+    <div id="modalSenha" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000;">
+        <div style="background: white; width: 90%; max-width: 350px; margin: 150px auto; padding: 20px; border-radius: 20px; text-align: center;">
+            <h3>Alterar Senha</h3>
+            <p>Digite sua nova senha abaixo:</p>
+            <input type="password" placeholder="Nova Senha" id="senhaInput">
+            <div style="display: flex; gap: 10px;">
+                <button class="btn-outline" onclick="document.getElementById('modalSenha').style.display='none'">Cancelar</button>
+                <button class="btn-primary" onclick="alert('Senha alterada com sucesso!'); document.getElementById('modalSenha').style.display='none'">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="/tutor/dashboard" class="nav-item">
+            <i class="nav-icon fa-solid fa-house"></i>
+            <span class="nav-label">Início</span>
+        </a>
+        <a href="/tutor/agendar" class="nav-item">
+            <i class="nav-icon fa-solid fa-calendar-plus"></i>
+            <span class="nav-label">Agendar</span>
+        </a>
+        <a href="/tutor/perfil" class="nav-item active">
+            <i class="nav-icon fa-solid fa-user"></i>
+            <span class="nav-label">Conta</span>
+        </a>
+    </nav>
+</body>
+</html>
