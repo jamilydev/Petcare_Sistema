@@ -39,7 +39,7 @@ Relacionamento entre Classes (Associação/Composição).
 
 Persistência em Banco de Dados Relacional.
 
-### Desenvolvido por Jamily, Gustavo Alves, Gustavo Duarte e Julia Pereira.
+### Desenvolvido por Jamily, Gustavo Alves, Gustavo Duarte e Júlia Souza.
 
 ## 📂 Estrutura do Projeto
 
